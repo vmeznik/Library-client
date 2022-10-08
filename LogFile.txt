@@ -1,0 +1,2 @@
+2022/10/02 10:10:26 SearchViewModel - Error while searching  ,something is not set
+2022/10/02 11:25:32 SearchViewModel - Error while searching  ,something is not set
