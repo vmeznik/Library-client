@@ -8,11 +8,11 @@ public class ViewModelFactory {
     private final RemoveViewModel removeViewModel;
     private final SearchViewModel searchViewModel;
 
-    public ViewModelFactory(IBookService IBookService) {
-        this.addViewModel = new AddViewModel(IBookService);
-        this.borrowViewModel = new BorrowViewModel(IBookService);
-        this.removeViewModel = new RemoveViewModel(IBookService);
-        this.searchViewModel = new SearchViewModel(IBookService);
+    public ViewModelFactory(IBookService iBookService) {
+        this.addViewModel = new AddViewModel(iBookService);
+        this.borrowViewModel = new BorrowViewModel(iBookService);
+        this.removeViewModel = new RemoveViewModel(iBookService);
+        this.searchViewModel = new SearchViewModel(iBookService);
     }
 
     public AddViewModel getAddViewModel() {

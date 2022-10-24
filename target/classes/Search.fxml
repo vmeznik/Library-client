@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="732.0" prefWidth="973.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.view.controller.SearchController">
     <children>
-        <Text layoutX="333.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search library.model" textAlignment="CENTER" wrappingWidth="306.93670654296875">
+        <Text layoutX="333.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" textAlignment="CENTER" wrappingWidth="306.93670654296875">
             <font>
                 <Font size="26.0" />
             </font>

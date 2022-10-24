@@ -1,16 +1,17 @@
 package library.service;
 
+import jakarta.ws.rs.core.GenericType;
 import library.model.Book;
 import com.google.gson.Gson;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.json.JSONArray;
 import library.utility.Logger;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+
 
 public class BookService implements IBookService {
     private String title;
@@ -20,12 +21,11 @@ public class BookService implements IBookService {
     private int id;
     private boolean onlyOpen;
     private final PropertyChangeSupport property;
-    private final Gson gson;
     private final Client client;
 
     public BookService() {
         this.property = new PropertyChangeSupport(this);
-        this.gson = new Gson();
+
         this.client = ClientBuilder.newClient();
     }
 
@@ -62,7 +62,8 @@ public class BookService implements IBookService {
     @Override
     public void addBook() {
         if (this.genre != null && this.title != null && this.firstName != null && this.lastName != null) {
-            sendRequest("add", new Book(0, this.title, this.genre, "open", this.firstName, this.lastName));
+            sendRequest("add", new Book(0, this.title, this.genre, "open", this.firstName, this.lastName),
+                    "post");
         } else Logger.getInstance().log("Error while adding on BookService something is null");
     }
 
@@ -71,7 +72,7 @@ public class BookService implements IBookService {
         if (this.id <= 0) {
             Logger.getInstance().log("Error while returning on BookService - ID <= 0");
         } else sendRequest("update", new Book(this.id, null, null, "open",
-                null, null));
+                null, null), "put");
     }
 
     @Override
@@ -79,22 +80,21 @@ public class BookService implements IBookService {
         if (this.id <= 0) {
             Logger.getInstance().log("Error while borrowing on BookService - ID <= 0");
         } else sendRequest("update", new Book(this.id, null, null, "close",
-                null, null));
+                null, null), "put");
     }
 
     @Override
     public void removeBook() {
         if (this.id <= 0) {
             Logger.getInstance().log("Error while removing on BookService - ID <= 0");
-        } else sendRequest("remove", new Book(this.id, null, null, "close",
-                null, null));
+        } else sendRequest("remove?id=" + this.id, null, "delete");
     }
 
     @Override
     public void searchBook() {
         if (this.genre != null || this.title != null || this.firstName != null || this.lastName != null) {
             sendRequest("search?onlyOpen=" + this.onlyOpen, new Book(this.id, this.title, this.genre,
-                    "", this.firstName, this.lastName));
+                    "", this.firstName, this.lastName), "get");
         } else {
             Logger.getInstance().log("Error while searching on ModelManager something is null");
         }
@@ -102,8 +102,8 @@ public class BookService implements IBookService {
 
     @Override
     public void searchAllBooks() {
-        sendRequest("searchAll?onlyOpen=" + this.onlyOpen, new Book(0,null,null,null,
-                null,null));
+        sendRequest("searchAll?onlyOpen=" + this.onlyOpen, new Book(0, null, null, null,
+                null, null), "get");
     }
 
     @Override
@@ -116,8 +116,7 @@ public class BookService implements IBookService {
         property.removePropertyChangeListener(listener);
     }
 
-
-    private void sendRequest(String action, Book book) {
+    private void sendRequest(String action, Book book, String operation) {
         WebTarget resource = client.target("http://localhost:8080/" + action);
 
         Invocation.Builder request = resource.request(MediaType.APPLICATION_JSON);
@@ -125,16 +124,26 @@ public class BookService implements IBookService {
 
         Response response;
         try {
-            response = request.post(Entity.entity(book, MediaType.APPLICATION_JSON));
-            JSONArray jsonArray = gson.fromJson(response.readEntity(String.class), JSONArray.class);
-
-            ArrayList<Book> list = new ArrayList<>();
-            if (jsonArray != null) {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    list.add(gson.fromJson(jsonArray.getString(i), Book.class));
+            switch (operation) {
+                case "post": {
+                    request.post(Entity.entity(book, MediaType.APPLICATION_JSON));
+                }
+                break;
+                case "put": {
+                    request.put(Entity.entity(book, MediaType.APPLICATION_JSON));
+                }
+                break;
+                case "delete": {
+                    request.delete();
+                }
+                break;
+                case "get": {
+                    response = request.post(Entity.entity(book, MediaType.APPLICATION_JSON));
+                    ArrayList<Book> list = response.readEntity(new GenericType<ArrayList<Book>>() {
+                    });
+                    property.firePropertyChange("bookList", null, list);
                 }
             }
-            property.firePropertyChange("bookList", null, list);
         } catch (Exception e) {
             e.printStackTrace();
         }

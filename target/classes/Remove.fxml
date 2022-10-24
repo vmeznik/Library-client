@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="409.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.view.controller.RemoveController">
     <children>
-        <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove library.model from database of the library" textAlignment="CENTER" wrappingWidth="306.93670654296875">
+        <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove from database of the library" textAlignment="CENTER" wrappingWidth="306.93670654296875">
             <font>
                 <Font size="26.0" />
             </font>
@@ -21,7 +21,7 @@
                 <Button mnemonicParsing="false" onAction="#removeBook" prefHeight="36.0" prefWidth="202.0" text="Remove" />
             </children>
         </HBox>
-        <Label layoutX="7.0" layoutY="195.0" prefHeight="18.0" prefWidth="87.0" text="ID of a library.model" />
+        <Label alignment="CENTER" layoutX="7.0" layoutY="195.0" prefHeight="18.0" prefWidth="87.0" text="ID " />
         <Button fx:id="back" layoutX="589.0" layoutY="309.0" mnemonicParsing="false" onAction="#back" prefHeight="47.0" prefWidth="126.0" text="BACK" />
     </children>
 </AnchorPane>

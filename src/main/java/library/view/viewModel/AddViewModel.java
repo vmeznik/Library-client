@@ -10,10 +10,10 @@ public class AddViewModel {
     private final StringProperty genre;
     private final StringProperty firstName;
     private final StringProperty lastName;
-    private final IBookService IBookService;
+    private final IBookService iBookService;
 
-    public AddViewModel(IBookService IBookService) {
-        this.IBookService = IBookService;
+    public AddViewModel(IBookService iBookService) {
+        this.iBookService = iBookService;
         this.title = new SimpleStringProperty();
         this.genre = new SimpleStringProperty();
         this.firstName = new SimpleStringProperty();
@@ -44,28 +44,28 @@ public class AddViewModel {
     public void setTitle() {
         if (this.title.getValue() != null) {
             this.title.setValue(this.title.getValue().toLowerCase());
-            IBookService.setTitle(this.title.getValue());
+            iBookService.setTitle(this.title.getValue());
         }
     }
 
     public void setGenre() {
         if (this.genre.getValue() != null) {
             this.genre.setValue(this.genre.getValue().toLowerCase());
-            IBookService.setGenre(this.genre.getValue());
+            iBookService.setGenre(this.genre.getValue());
         }
     }
 
     public void setFirstName() {
         if (this.firstName.getValue() != null) {
             this.firstName.setValue(this.firstName.getValue().toLowerCase());
-            IBookService.setFirstName(this.firstName.getValue());
+            iBookService.setFirstName(this.firstName.getValue());
         }
     }
 
     public void setLastName() {
         if (this.lastName.getValue() != null) {
             this.lastName.setValue(this.lastName.getValue().toLowerCase());
-            IBookService.setLastName(this.lastName.getValue());
+            iBookService.setLastName(this.lastName.getValue());
         }
     }
 
@@ -73,7 +73,7 @@ public class AddViewModel {
     public void addBook() {
         if (this.title.getValue() != null && this.genre.getValue() != null &&
                 this.firstName.getValue() != null && this.lastName.getValue() != null) {
-            IBookService.addBook();
+            iBookService.addBook();
             this.title.set(null);
             this.genre.set(null);
             this.firstName.set(null);

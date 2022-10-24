@@ -7,10 +7,10 @@ import library.utility.Logger;
 
 public class RemoveViewModel {
     private final StringProperty id;
-    private final IBookService IBookService;
+    private final IBookService iBookService;
 
-    public RemoveViewModel(IBookService IBookService) {
-        this.IBookService = IBookService;
+    public RemoveViewModel(IBookService iBookService) {
+        this.iBookService = iBookService;
         this.id = new SimpleStringProperty();
     }
 
@@ -20,13 +20,13 @@ public class RemoveViewModel {
     }
 
     public void setId() {
-        IBookService.setId(Integer.parseInt(this.id.getValue()));
+        iBookService.setId(Integer.parseInt(this.id.getValue()));
     }
 
     // maybe later I will add error to gui instead of print method :)))
     public void removeBook() {
         if (this.id.getValue() != null) {
-            IBookService.removeBook();
+            iBookService.removeBook();
             this.id.set(null);
         } else Logger.getInstance().log("RemoveViewModel - Error while removing  ,something is not set");
     }

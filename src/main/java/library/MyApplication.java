@@ -12,8 +12,8 @@ public class MyApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            IBookService IBookService = new BookService();
-            ViewModelFactory viewModelFactory = new ViewModelFactory(IBookService);
+            IBookService iBookService = new BookService();
+            ViewModelFactory viewModelFactory = new ViewModelFactory(iBookService);
             ViewHandler view = new ViewHandler(viewModelFactory);
             view.start(primaryStage);
         } catch (Exception e) {

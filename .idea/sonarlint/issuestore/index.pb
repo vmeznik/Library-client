@@ -1,7 +1,7 @@
 
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 [
 +src/main/java/library/view/ViewHandler.java,c\7\c730b01978e37f4ad6df2c83a03b854bdb2fb474
-f
-6src/main/java/library/view/viewModel/AddViewModel.java,4\c\4c34c5a2230e242306b1c738d4bb43acaec943cb
+k
+;src/main/java/library/view/controller/SearchController.java,f\e\fe205352cd713dc116f95ff92cb3d05b7bfa2847
+k
+;src/main/java/library/view/controller/RemoveController.java,e\1\e19747788ee7f6abd816a222fb120f379174a663

@@ -10,6 +10,7 @@ import library.utility.Logger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchViewModel implements PropertyChangeListener {
     private final StringProperty title;
@@ -18,16 +19,16 @@ public class SearchViewModel implements PropertyChangeListener {
     private final StringProperty lastName;
     private final ListProperty<Book> list;
     private boolean onlyOpen;
-    private final IBookService IBookService;
+    private final IBookService iBookService;
 
-    public SearchViewModel(IBookService IBookService) {
-        this.IBookService = IBookService;
+    public SearchViewModel(IBookService iBookService) {
+        this.iBookService = iBookService;
         this.title = new SimpleStringProperty();
         this.genre = new SimpleStringProperty();
         this.firstName = new SimpleStringProperty();
         this.lastName = new SimpleStringProperty();
         this.list = new SimpleListProperty<>();
-        IBookService.addListener(this);
+        iBookService.addListener(this);
     }
 
 
@@ -58,35 +59,35 @@ public class SearchViewModel implements PropertyChangeListener {
         if (this.title.getValue() != null) {
             this.title.setValue(this.title.getValue().toLowerCase());
         }
-        IBookService.setTitle(this.title.getValue());
+        iBookService.setTitle(this.title.getValue());
     }
 
     public void setGenre() {
         if (this.genre.getValue() != null) {
             this.genre.setValue(this.genre.getValue().toLowerCase());
         }
-        IBookService.setGenre(this.genre.getValue());
+        iBookService.setGenre(this.genre.getValue());
     }
 
     public void setFirstName() {
         if (this.firstName.getValue() != null) {
             this.firstName.setValue(this.firstName.getValue().toLowerCase());
         }
-        IBookService.setFirstName(this.firstName.getValue());
+        iBookService.setFirstName(this.firstName.getValue());
     }
 
     public void setLastName() {
         if (this.lastName.getValue() != null) {
             this.lastName.setValue(this.lastName.getValue().toLowerCase());
         }
-        IBookService.setLastName(this.lastName.getValue());
+        iBookService.setLastName(this.lastName.getValue());
     }
 
     public void setOnlyOpen() {
         if (this.onlyOpen) {
             this.onlyOpen = false;
         } else this.onlyOpen = true;
-        IBookService.setOnlyOpen(this.onlyOpen);
+        iBookService.setOnlyOpen(this.onlyOpen);
     }
 
 
@@ -94,7 +95,7 @@ public class SearchViewModel implements PropertyChangeListener {
     public void searchBook() {
         if (this.title.getValue() != null || this.genre.getValue() != null ||
                 this.firstName.getValue() != null || this.lastName.getValue() != null) {
-            IBookService.searchBook();
+            iBookService.searchBook();
             try {
                 this.title.set(null);
                 this.genre.set(null);
@@ -107,25 +108,25 @@ public class SearchViewModel implements PropertyChangeListener {
     }
 
     public void searchAllBooks() {
-        IBookService.searchAllBooks();
+        iBookService.searchAllBooks();
     }
 
     public void removeBook(Book book) {
-        IBookService.setId(book.getId());
-        IBookService.removeBook();
-        IBookService.searchAllBooks();
+        iBookService.setId(book.getId());
+        iBookService.removeBook();
+        iBookService.searchAllBooks();
     }
 
     public void returnBook(Book book) {
-        IBookService.setId(book.getId());
-        IBookService.returnBook();
-        IBookService.searchAllBooks();
+        iBookService.setId(book.getId());
+        iBookService.returnBook();
+        iBookService.searchAllBooks();
     }
 
     public void borrowBook(Book book) {
-        IBookService.setId(book.getId());
-        IBookService.borrowBook();
-        IBookService.searchAllBooks();
+        iBookService.setId(book.getId());
+        iBookService.borrowBook();
+        iBookService.searchAllBooks();
     }
 
     @Override
